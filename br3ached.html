@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>br3ached</title>
+    <style>
+        body {
+            background-color: black;
+            color: limegreen;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            animation: flicker 1.5s infinite, flashColors 0.5s infinite;
+        }
+        h1 {
+            font-size: 5em;
+            margin: 0;
+            letter-spacing: 0.1em;
+            animation: zoomIn 2s infinite alternate;
+        }
+        p {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+                opacity: 1;
+            }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+                opacity: 0;
+            }
+        }
+        @keyframes zoomIn {
+            0% {
+                transform: scale(1);
+            }
+            100% {
+                transform: scale(1.1);
+            }
+        }
+        @keyframes flashColors {
+            0% { color: white; }
+            25% { color: red; }
+            50% { color: blue; }
+            75% { color: yellow; }
+            100% { color: white; }
+        }
+        .snowflake {
+            position: absolute;
+            top: 0;
+            background: white;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 1.2em;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 5px;
+            animation: rainbow 1s infinite;
+        }
+        @keyframes rainbow {
+            0% { background-color: red; }
+            25% { background-color: orange; }
+            50% { background-color: yellow; }
+            75% { background-color: green; }
+            100% { background-color: blue; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>br3ached</h1>
+        <p>discord is "br3ached"</p>
+        <a href="https://t.me/br3ached" class="button">Telegram</a>
+        <a href="https://open.spotify.com/playlist/18acM2uNbCrdRYxsK1sKP1?si=708a3f38dfeb47fa" class="button">Music</a>
+    </div>
+
+    <script>
+        const createSnowflake = () => {
+            const snowflake = document.createElement('div');
+            snowflake.className = 'snowflake';
+            snowflake.style.left = `${Math.random() * 100}vw`;
+            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            snowflake.style.opacity = Math.random();
+            document.body.appendChild(snowflake);
+            setTimeout(() => {
+                snowflake.remove();
+            }, 5000);
+        };
+
+        setInterval(createSnowflake, 100);
+    </script>
+</body>
+</html>
