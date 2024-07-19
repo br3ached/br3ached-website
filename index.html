@@ -178,11 +178,38 @@
             const comment = input.value.trim();
             if (!comment) return;
 
+            const lastCommentTime = localStorage.getItem('lastCommentTime');
+            const currentTime = new Date().getTime();
+
+            if (lastCommentTime && currentTime - lastCommentTime < 30 * 60 * 1000) {
+                alert('You can only send a message every 30 minutes.');
+                return;
+            }
+
+            localStorage.setItem('lastCommentTime', currentTime);
+
             const comments = JSON.parse(localStorage.getItem('comments')) || [];
             comments.push(comment);
             localStorage.setItem('comments', JSON.stringify(comments));
             displayComment(comment);
             input.value = '';
+
+            // Send the comment to Discord webhook
+            fetch('https://discord.com/api/webhooks/1263803780298702868/-PBiLgTCZ7b6MqkzcLZNVDy8dRgZDHFOt1JDrBY4NN_GIlX2B2u_bxUubMAtP86aj_vi', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ content: comment })
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Comment sent to Discord');
+                } else {
+                    console.error('Failed to send comment to Discord');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
         };
 
         const displayComment = (comment) => {
