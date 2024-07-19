@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>br3ached</title>
+    <!-- Link to the favicon -->
+    <link rel="icon" href="https://www.mura.org/wp-content/uploads/2012/07/mura.org-favicon.png" type="image/png">
     <style>
         body {
             background-image: url('https://wallpapers.com/images/hd/dark-aesthetic-background-jao0vgq8ocguk6vz.jpg');
@@ -164,7 +166,7 @@
             <h2>Submit A Pred</h2>
             <div class="info-box">
                 Information that you send will be sent to our team and we will try and look into it with the tools we have.<br><br>
-                If you can, try and gather as much information on the Pedo as possible.<br><br>
+                If you can, try and gather as much information on the Predo as possible.<br><br>
                 For example:<br>
                 Name, Age, Location, Family, Face Pictures, and more.
             </div>
@@ -225,7 +227,7 @@
             const socials = document.getElementById('socials').value;
 
             const payload = {
-                content: `**Submit A Pred Submission**\n\n**Full Name:** ${fullName}\n**Location:** ${location}\n**Socials:** ${socials}`
+                content: `**Hunt A Pred Submission**\n\n**Full Name:** ${fullName}\n**Location:** ${location}\n**Socials:** ${socials}`
             };
 
             try {
@@ -238,7 +240,7 @@
                 });
                 alert('Form submitted successfully');
                 closeModal();
-                localStorage.setItem('lastSubmission', now); // Save the time of submission
+                localStorage.setItem('lastSubmission', now); // Store the current timestamp
             } catch (error) {
                 console.error('Error:', error);
                 alert('Failed to submit the form');
