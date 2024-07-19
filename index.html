@@ -9,7 +9,7 @@
             background-image: url('https://wallpapers.com/images/hd/dark-aesthetic-background-jao0vgq8ocguk6vz.jpg');
             background-size: cover;
             background-position: center;
-            color: limegreen;
+            color: white;
             font-family: 'Courier New', Courier, monospace;
             display: flex;
             flex-direction: column;
@@ -21,9 +21,6 @@
         }
         .container {
             text-align: center;
-        }
-        h1, p {
-            color: white;
         }
         h1 {
             font-size: 5em;
@@ -77,20 +74,22 @@
             align-items: center;
         }
         .modal-content {
-            background: white;
-            color: black;
+            background: #333;
+            color: #fff;
             padding: 20px;
             border-radius: 10px;
             width: 90%;
-            max-width: 500px;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
         .modal-content h2 {
             margin-top: 0;
+            font-size: 2em;
         }
         .info-box {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background-color: #444;
+            color: #ddd;
+            border: 1px solid #555;
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
@@ -98,28 +97,42 @@
         .modal-content label {
             display: block;
             margin-top: 10px;
+            font-size: 1.1em;
         }
         .modal-content input,
         .modal-content textarea {
-            width: 100%;
-            padding: 10px;
+            width: calc(100% - 22px);
+            padding: 12px;
             margin-top: 5px;
-            border: 2px solid black; /* Black outline */
+            border: 2px solid #555; /* Dark border */
             border-radius: 5px;
-            box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+            background-color: #222; /* Dark background */
+            color: #fff; /* White text */
+            box-sizing: border-box;
+            font-size: 1em;
+        }
+        .modal-content textarea {
+            resize: vertical;
         }
         .modal-content button {
             margin-top: 20px;
-            padding: 10px;
-            background-color: limegreen;
+            padding: 12px 20px;
+            background-color: #444;
             color: white;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s; /* Smooth transition on hover */
+            font-size: 1.1em;
+        }
+        .modal-content button:hover {
+            background-color: #555;
         }
         .modal-content button.close {
             background-color: red;
+        }
+        .modal-content button.close:hover {
+            background-color: darkred;
         }
         .copyright {
             position: fixed;
@@ -151,7 +164,7 @@
             <h2>Submit A Pred</h2>
             <div class="info-box">
                 Information that you send will be sent to our team and we will try and look into it with the tools we have.<br><br>
-                If you can, try and gather as much information on the Predo as possible.<br><br>
+                If you can, try and gather as much information on the Pedo as possible.<br><br>
                 For example:<br>
                 Name, Age, Location, Family, Face Pictures, and more.
             </div>
@@ -198,6 +211,15 @@
         document.getElementById('hunt-form').addEventListener('submit', async function(event) {
             event.preventDefault();
 
+            const now = new Date().getTime();
+            const lastSubmission = localStorage.getItem('lastSubmission');
+            const fifteenMinutes = 15 * 60 * 1000; // 15 minutes in milliseconds
+
+            if (lastSubmission && now - lastSubmission < fifteenMinutes) {
+                alert('You can only submit the form once every 15 minutes.');
+                return;
+            }
+
             const fullName = document.getElementById('full-name').value;
             const location = document.getElementById('location').value;
             const socials = document.getElementById('socials').value;
@@ -216,13 +238,14 @@
                 });
                 alert('Form submitted successfully');
                 closeModal();
+                localStorage.setItem('lastSubmission', now); // Save the time of submission
             } catch (error) {
                 console.error('Error:', error);
                 alert('Failed to submit the form');
             }
         });
     </script>
-
+    
     <div class="copyright">
         &copy; 2024 br3ached. All rights reserved.
     </div>
