@@ -58,6 +58,23 @@
             background-color: limegreen; /* Change background on hover */
             color: black; /* Change text color on hover */
         }
+        .purchase-button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 20px;
+            font-size: 1.2em;
+            color: white;
+            text-decoration: none;
+            border: 2px solid white;
+            border-radius: 5px;
+            background-color: black; /* Set background color to black */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition on hover */
+            cursor: pointer;
+        }
+        .purchase-button:hover {
+            background-color: limegreen; /* Change background on hover */
+            color: black; /* Change text color on hover */
+        }
         .bottom-button {
             position: fixed;
             bottom: 20px;
@@ -152,12 +169,25 @@
         <p>discord is "br3ached"</p>
         <a href="https://t.me/br3ached" class="button">Telegram</a>
         <a href="https://open.spotify.com/playlist/18acM2uNbCrdRYxsK1sKP1?si=708a3f38dfeb47fa" class="button">Music</a>
+        <button class="purchase-button" onclick="openPurchaseModal()">Fraud Book</button>
     </div>
 
     <audio id="background-music" autoplay loop>
         <source src="https://cdn.pixabay.com/download/audio/2023/03/30/audio_8c92c8a4f8.mp3?filename=million-trap-rage-type-beat-200668.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
+
+    <!-- Purchase Modal -->
+    <div id="purchase-modal" class="modal">
+        <div class="modal-content">
+            <h2>Purchase Fraud Book</h2>
+            <div class="info-box">
+                To obtain the fraud book, please add our Discord: <strong>br3ached</strong><br><br>
+                Once added, send a message with your request. We will provide you with the file details and payment instructions.
+            </div>
+            <button type="button" class="close" onclick="closePurchaseModal()">Close</button>
+        </div>
+    </div>
 
     <button class="button bottom-button" onclick="openModal()">Submit A Pred</button>
 
@@ -187,26 +217,20 @@
     </div>
 
     <script>
-        const createSnowflake = () => {
-            const snowflake = document.createElement('div');
-            snowflake.className = 'snowflake';
-            snowflake.style.left = `${Math.random() * 100}vw`;
-            snowflake.style.animationDuration = `${Math.random() * 3 + 2}s`;
-            snowflake.style.opacity = Math.random();
-            document.body.appendChild(snowflake);
-            setTimeout(() => {
-                snowflake.remove();
-            }, 5000);
-        };
-
-        setInterval(createSnowflake, 100);
-
         const openModal = () => {
             document.getElementById('modal').style.display = 'flex';
         };
 
         const closeModal = () => {
             document.getElementById('modal').style.display = 'none';
+        };
+
+        const openPurchaseModal = () => {
+            document.getElementById('purchase-modal').style.display = 'flex';
+        };
+
+        const closePurchaseModal = () => {
+            document.getElementById('purchase-modal').style.display = 'none';
         };
 
         // Handle form submission
