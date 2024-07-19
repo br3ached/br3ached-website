@@ -92,6 +92,40 @@
             75% { background-color: green; }
             100% { background-color: blue; }
         }
+        .comment-box {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 300px;
+            max-height: 400px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid limegreen;
+            border-radius: 10px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .comment-box-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            color: white;
+        }
+        .comment-box-input {
+            display: flex;
+        }
+        .comment-box-input input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-top: 2px solid limegreen;
+        }
+        .comment-box-input button {
+            padding: 10px;
+            background: limegreen;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -102,7 +136,18 @@
         <a href="https://open.spotify.com/playlist/18acM2uNbCrdRYxsK1sKP1?si=708a3f38dfeb47fa" class="button">Music</a>
     </div>
 
-<bgsound src="million-trap-rage-type-beat-200668.mp3">
+    <audio id="background-music" autoplay loop>
+        <source src="https://cdn.pixabay.com/download/audio/2023/03/30/audio_8c92c8a4f8.mp3?filename=million-trap-rage-type-beat-200668.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+
+    <div class="comment-box" id="comment-box">
+        <div class="comment-box-messages" id="comment-box-messages"></div>
+        <div class="comment-box-input">
+            <input type="text" id="comment-box-input" placeholder="Type a comment...">
+            <button onclick="addComment()">Add</button>
+        </div>
+    </div>
 
     <script>
         const createSnowflake = () => {
@@ -118,6 +163,37 @@
         };
 
         setInterval(createSnowflake, 100);
+
+        const loadComments = () => {
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            const commentBoxMessages = document.getElementById('comment-box-messages');
+            commentBoxMessages.innerHTML = '';
+            comments.forEach(comment => {
+                displayComment(comment);
+            });
+        };
+
+        const addComment = () => {
+            const input = document.getElementById('comment-box-input');
+            const comment = input.value.trim();
+            if (!comment) return;
+
+            const comments = JSON.parse(localStorage.getItem('comments')) || [];
+            comments.push(comment);
+            localStorage.setItem('comments', JSON.stringify(comments));
+            displayComment(comment);
+            input.value = '';
+        };
+
+        const displayComment = (comment) => {
+            const commentBoxMessages = document.getElementById('comment-box-messages');
+            const commentElement = document.createElement('div');
+            commentElement.textContent = comment;
+            commentBoxMessages.appendChild(commentElement);
+            commentBoxMessages.scrollTop = commentBoxMessages.scrollHeight;
+        };
+
+        document.addEventListener('DOMContentLoaded', loadComments);
     </script>
 </body>
 </html>
