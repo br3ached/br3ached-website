@@ -92,39 +92,66 @@
             75% { background-color: green; }
             100% { background-color: blue; }
         }
-        .comment-box {
+        .bottom-button {
             position: fixed;
             bottom: 20px;
-            left: 20px;
-            width: 300px;
-            max-height: 400px;
+            font-size: 1.5em;
+        }
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background: rgba(0, 0, 0, 0.8);
-            border: 2px solid limegreen;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            color: black;
+            padding: 20px;
             border-radius: 10px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            width: 90%;
+            max-width: 500px;
         }
-        .comment-box-messages {
-            flex: 1;
+        .modal-content h2 {
+            margin-top: 0;
+        }
+        .info-box {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .modal-content label {
+            display: block;
+            margin-top: 10px;
+        }
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
             padding: 10px;
-            overflow-y: auto;
+            margin-top: 5px;
+            border: 2px solid black; /* Black outline */
+            border-radius: 5px;
+            box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
+        }
+        .modal-content button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: limegreen;
             color: white;
-        }
-        .comment-box-input {
-            display: flex;
-        }
-        .comment-box-input input {
-            flex: 1;
-            padding: 10px;
             border: none;
-            border-top: 2px solid limegreen;
-        }
-        .comment-box-input button {
-            padding: 10px;
-            background: limegreen;
-            border: none;
+            border-radius: 5px;
             cursor: pointer;
+        }
+        .modal-content button.close {
+            background-color: red;
         }
     </style>
 </head>
@@ -141,11 +168,30 @@
         Your browser does not support the audio element.
     </audio>
 
-    <div class="comment-box" id="comment-box">
-        <div class="comment-box-messages" id="comment-box-messages"></div>
-        <div class="comment-box-input">
-            <input type="text" id="comment-box-input" placeholder="Type a comment...">
-            <button onclick="addComment()">Add</button>
+    <button class="button bottom-button" onclick="openModal()">Hunt A Pred</button>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <h2>Hunt A Pred</h2>
+            <div class="info-box">
+                Information that you send will be sent to our team and we will try and look into it with the tools we have.<br><br>
+                If you can, try and gather as much information on the Predo as possible.<br><br>
+                For example:<br>
+                Name, Age, Location, Family, Face Pictures, and more.
+            </div>
+            <form id="hunt-form">
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full-name" required>
+                
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="location" required>
+                
+                <label for="socials">Socials:</label>
+                <textarea id="socials" name="socials" rows="4" required></textarea>
+                
+                <button type="submit">Submit</button>
+                <button type="button" class="close" onclick="closeModal()">Close</button>
+            </form>
         </div>
     </div>
 
@@ -164,63 +210,41 @@
 
         setInterval(createSnowflake, 100);
 
-        const loadComments = () => {
-            const comments = JSON.parse(localStorage.getItem('comments')) || [];
-            const commentBoxMessages = document.getElementById('comment-box-messages');
-            commentBoxMessages.innerHTML = '';
-            comments.forEach(comment => {
-                displayComment(comment);
-            });
+        const openModal = () => {
+            document.getElementById('modal').style.display = 'flex';
         };
 
-        const addComment = () => {
-            const input = document.getElementById('comment-box-input');
-            const comment = input.value.trim();
-            if (!comment) return;
+        const closeModal = () => {
+            document.getElementById('modal').style.display = 'none';
+        };
 
-            const lastCommentTime = localStorage.getItem('lastCommentTime');
-            const currentTime = new Date().getTime();
+        // Handle form submission
+        document.getElementById('hunt-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
 
-            if (lastCommentTime && currentTime - lastCommentTime < 30 * 60 * 1000) {
-                alert('You can only send a message every 30 minutes.');
-                return;
-            }
+            const fullName = document.getElementById('full-name').value;
+            const location = document.getElementById('location').value;
+            const socials = document.getElementById('socials').value;
 
-            localStorage.setItem('lastCommentTime', currentTime);
+            const payload = {
+                content: `**Hunt A Pred Submission**\n\n**Full Name:** ${fullName}\n**Location:** ${location}\n**Socials:** ${socials}`
+            };
 
-            const comments = JSON.parse(localStorage.getItem('comments')) || [];
-            comments.push(comment);
-            localStorage.setItem('comments', JSON.stringify(comments));
-            displayComment(comment);
-            input.value = '';
-
-            // Send the comment to Discord webhook
-            fetch('https://discord.com/api/webhooks/1263803780298702868/-PBiLgTCZ7b6MqkzcLZNVDy8dRgZDHFOt1JDrBY4NN_GIlX2B2u_bxUubMAtP86aj_vi', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ content: comment })
-            }).then(response => {
-                if (response.ok) {
-                    console.log('Comment sent to Discord');
-                } else {
-                    console.error('Failed to send comment to Discord');
-                }
-            }).catch(error => {
+            try {
+                await fetch('https://discord.com/api/webhooks/1263803780298702868/-PBiLgTCZ7b6MqkzcLZNVDy8dRgZDHFOt1JDrBY4NN_GIlX2B2u_bxUubMAtP86aj_vi', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                alert('Form submitted successfully');
+                closeModal();
+            } catch (error) {
                 console.error('Error:', error);
-            });
-        };
-
-        const displayComment = (comment) => {
-            const commentBoxMessages = document.getElementById('comment-box-messages');
-            const commentElement = document.createElement('div');
-            commentElement.textContent = comment;
-            commentBoxMessages.appendChild(commentElement);
-            commentBoxMessages.scrollTop = commentBoxMessages.scrollHeight;
-        };
-
-        document.addEventListener('DOMContentLoaded', loadComments);
+                alert('Failed to submit the form');
+            }
+        });
     </script>
 </body>
 </html>
