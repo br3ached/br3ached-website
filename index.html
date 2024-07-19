@@ -21,7 +21,9 @@
         }
         .container {
             text-align: center;
-            animation: flicker 1.5s infinite, flashColors 0.5s infinite;
+        }
+        h1, p {
+            color: white;
         }
         h1 {
             font-size: 5em;
@@ -33,45 +35,12 @@
             font-size: 1.5em;
             margin-top: 20px;
         }
-        @keyframes flicker {
-            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
-                opacity: 1;
-            }
-            20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
-                opacity: 0;
-            }
-        }
         @keyframes zoomIn {
             0% {
                 transform: scale(1);
             }
             100% {
                 transform: scale(1.1);
-            }
-        }
-        @keyframes flashColors {
-            0% { color: white; }
-            25% { color: red; }
-            50% { color: blue; }
-            75% { color: yellow; }
-            100% { color: white; }
-        }
-        .snowflake {
-            position: absolute;
-            top: 0;
-            background: white;
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            opacity: 0.7;
-            animation: fall linear infinite;
-        }
-        @keyframes fall {
-            0% {
-                transform: translateY(0);
-            }
-            100% {
-                transform: translateY(100vh);
             }
         }
         .button {
@@ -83,14 +52,12 @@
             text-decoration: none;
             border: 2px solid white;
             border-radius: 5px;
-            animation: rainbow 1s infinite;
+            background-color: black; /* Set background color to black */
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition on hover */
         }
-        @keyframes rainbow {
-            0% { background-color: red; }
-            25% { background-color: orange; }
-            50% { background-color: yellow; }
-            75% { background-color: green; }
-            100% { background-color: blue; }
+        .button:hover {
+            background-color: limegreen; /* Change background on hover */
+            color: black; /* Change text color on hover */
         }
         .bottom-button {
             position: fixed;
@@ -149,9 +116,18 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s; /* Smooth transition on hover */
         }
         .modal-content button.close {
             background-color: red;
+        }
+        .copyright {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-size: 0.8em;
+            color: white;
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -168,11 +144,11 @@
         Your browser does not support the audio element.
     </audio>
 
-    <button class="button bottom-button" onclick="openModal()">Hunt A Pred</button>
+    <button class="button bottom-button" onclick="openModal()">Submit A Pred</button>
 
     <div id="modal" class="modal">
         <div class="modal-content">
-            <h2>Hunt A Pred</h2>
+            <h2>Submit A Pred</h2>
             <div class="info-box">
                 Information that you send will be sent to our team and we will try and look into it with the tools we have.<br><br>
                 If you can, try and gather as much information on the Predo as possible.<br><br>
@@ -227,7 +203,7 @@
             const socials = document.getElementById('socials').value;
 
             const payload = {
-                content: `**Hunt A Pred Submission**\n\n**Full Name:** ${fullName}\n**Location:** ${location}\n**Socials:** ${socials}`
+                content: `**Submit A Pred Submission**\n\n**Full Name:** ${fullName}\n**Location:** ${location}\n**Socials:** ${socials}`
             };
 
             try {
@@ -246,5 +222,9 @@
             }
         });
     </script>
+
+    <div class="copyright">
+        &copy; 2024 br3ached. All rights reserved.
+    </div>
 </body>
 </html>
