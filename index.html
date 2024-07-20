@@ -6,7 +6,7 @@
     <title>br3ached</title>
     <link rel="icon" href="https://www.mura.org/wp-content/uploads/2012/07/mura.org-favicon.png" type="image/png">
     <style>
-        body{background-image:url('https://wallpapers.com/images/hd/dark-aesthetic-background-jao0vgq8ocguk6vz.jpg');background-size:cover;background-position:center;color:white;font-family:'Courier New',Courier,monospace;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;overflow:hidden}.container{text-align:center}h1{font-size:5em;margin:0;letter-spacing:0.1em;animation:zoomIn 2s infinite alternate}p{font-size:1.5em;margin-top:20px}@keyframes zoomIn{0%{transform:scale(1)}100%{transform:scale(1.1)}}.button{display:inline-block;padding:10px 20px;margin:20px;font-size:1.2em;color:white;text-decoration:none;border:2px solid white;border-radius:5px;background-color:black;transition:background-color 0.3s,color 0.3s}.button:hover{background-color:limegreen;color:black}.purchase-button{display:inline-block;padding:10px 20px;margin:20px;font-size:1.2em;color:white;text-decoration:none;border:2px solid white;border-radius:5px;background-color:black;transition:background-color 0.3s,color 0.3s;cursor:pointer}.purchase-button:hover{background-color:limegreen;color:black}.bottom-button{position:fixed;bottom:20px;font-size:1.5em}.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);justify-content:center;align-items:center}.modal-content{background:#333;color:#fff;padding:20px;border-radius:10px;width:90%;max-width:600px;box-shadow:0 4px 8px rgba(0,0,0,0.3)}.modal-content h2{margin-top:0;font-size:2em}.info-box{background-color:#444;color:#ddd;border:1px solid #555;padding:15px;border-radius:5px;margin-bottom:20px}.modal-content label{display:block;margin-top:10px;font-size:1.1em}.modal-content input,.modal-content textarea{width:calc(100% - 22px);padding:12px;margin-top:5px;border:2px solid #555;border-radius:5px;background-color:#222;color:#fff;box-sizing:border-box;font-size:1em}.modal-content textarea{resize:vertical}.modal-content button{margin-top:20px;padding:12px 20px;background-color:#444;color:white;border:none;border-radius:5px;cursor:pointer;transition:background-color 0.3s;font-size:1.1em}.modal-content button:hover{background-color:#555}.modal-content button.close{background-color:red}.modal-content button.close:hover{background-color:darkred}.copyright{position:fixed;bottom:10px;right:10px;font-size:0.8em;color:white;opacity:0.6}
+        body{background-image:url('https://wallpapers.com/images/hd/dark-aesthetic-background-jao0vgq8ocguk6vz.jpg');background-size:cover;background-position:center;color:white;font-family:'Courier New',Courier,monospace;display:flex;flex-direction:column;justify-content:center;align-items:center;height:100vh;margin:0;overflow:hidden}.container{text-align:center}h1{font-size:5em;margin:0;letter-spacing:0.1em;animation:zoomIn 2s infinite alternate}p{font-size:1.5em;margin-top:20px}@keyframes zoomIn{0%{transform:scale(1)}100%{transform:scale(1.1)}}.button{display:inline-block;padding:10px 20px;margin:20px;font-size:1.2em;color:white;text-decoration:none;border:2px solid white;border-radius:5px;background-color:black;transition:background-color 0.3s,color 0.3s}.button:hover{background-color:limegreen;color:black}.copyright{position:fixed;bottom:10px;right:10px;font-size:0.8em;color:white;opacity:0.6}
     </style>
 </head>
 <body>
@@ -15,89 +15,11 @@
         <p>discord is "br3ached"</p>
         <a href="https://t.me/br3ached" class="button">Telegram</a>
         <a href="https://open.spotify.com/playlist/18acM2uNbCrdRYxsK1sKP1?si=708a3f38dfeb47fa" class="button">Music</a>
-        <button class="purchase-button" onclick="openPurchaseModal()">Fraud Book</button>
     </div>
     <audio id="background-music" autoplay loop>
         <source src="https://cdn.pixabay.com/download/audio/2023/03/30/audio_8c92c8a4f8.mp3?filename=million-trap-rage-type-beat-200668.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
-    <div id="purchase-modal" class="modal">
-        <div class="modal-content">
-            <h2>Purchase Fraud Book</h2>
-            <div class="info-box">
-                To obtain the fraud book, please add our Discord: <strong>br3ached</strong><br><br>
-                Once added, send a message with your request. We will provide you with the file details and payment instructions.
-            </div>
-            <button type="button" class="close" onclick="closePurchaseModal()">Close</button>
-        </div>
-    </div>
-    <button class="button bottom-button" onclick="openModal()">Submit A Pred</button>
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <h2>Submit A Pred</h2>
-            <div class="info-box">
-                Information that you send will be sent to our team and we will try and look into it with the tools we have.<br><br>
-                If you can, try and gather as much information on the Predo as possible.<br><br>
-                For example:<br>
-                Name, Age, Location, Family, Face Pictures, and more.
-            </div>
-            <form id="hunt-form">
-                <label for="full-name">Full Name:</label>
-                <input type="text" id="full-name" name="full-name" required>
-                <label for="location">Location:</label>
-                <input type="text" id="location" name="location" required>
-                <label for="socials">Socials:</label>
-                <textarea id="socials" name="socials" rows="4" required></textarea>
-                <button type="submit">Submit</button>
-                <button type="button" class="close" onclick="closeModal()">Close</button>
-            </form>
-        </div>
-    </div>
-    <script>
-        const openModal = () => { document.getElementById('modal').style.display = 'flex'; };
-        const closeModal = () => { document.getElementById('modal').style.display = 'none'; };
-        const openPurchaseModal = () => { document.getElementById('purchase-modal').style.display = 'flex'; };
-        const closePurchaseModal = () => { document.getElementById('purchase-modal').style.display = 'none'; };
-
-        const decodeBase64 = (str) => {
-            try {
-                return atob(str);
-            } catch (e) {
-                console.error('Error decoding base64 string', e);
-                return null;
-            }
-        };
-
-        const webhookUrl = decodeBase64('aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTI2MzgwMzc4MDI5ODcwMjg2OC8tUEJpTGdUQ1o3YjZNcWt6Y0xaTlZEeThkUmdaREhGT3QxSkRyQlk0Tk5fR0lsWDIyQjJ1X2J4VXViTUF0UDg2YWpfdmk=');
-
-        document.getElementById('hunt-form').addEventListener('submit', async function(event) {
-            event.preventDefault();
-            const now = new Date().getTime();
-            const lastSubmission = localStorage.getItem('lastSubmission');
-            const fifteenMinutes = 15 * 60 * 1000;
-            if (lastSubmission && now - lastSubmission < fifteenMinutes) {
-                alert('You can only submit the form once every 15 minutes.');
-                return;
-            }
-            const fullName = document.getElementById('full-name').value;
-            const location = document.getElementById('location').value;
-            const socials = document.getElementById('socials').value;
-            const payload = { content: `**Hunt A Pred Submission**\n\n**Full Name:** ${fullName}\n**Location:** ${location}\n**Socials:** ${socials}` };
-            try {
-                await fetch(webhookUrl, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
-                });
-                alert('Form submitted successfully');
-                closeModal();
-                localStorage.setItem('lastSubmission', now);
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Failed to submit the form');
-            }
-        });
-    </script>
     <div class="copyright">&copy; 2024 br3ached. All rights reserved.</div>
 </body>
 </html>
